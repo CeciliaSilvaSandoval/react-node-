@@ -1,28 +1,33 @@
-import { Application, NextFunction, Request, Response } from 'express';
-import path from 'path'
+import { Application, Request, Response, NextFunction } from 'express';
+import path from 'path';
 
 import { IRoute } from '../routes/index.route';
-//ALGUIEN PREGUNTA POR LOS ENDPOINTS
-const registerRoutegMiddleware = (server: Application, routes: IRoute[]) => {
 
-    // register  API routes
-    routes.forEach((route: IRoute) => {
+const registerRouteMiddleware = ( server: Application, routes: IRoute[] ) => {
+
+    // register API routes
+    routes.forEach( (route: IRoute) => {
         server.use(route.api, route.router);
     });
 
 }
-const registerUnhandledRoutesMiddleware = (server: Application) => {
-    //HANDLE UNHANDLED GET REQUESTS & RETURN REACT APP
-    server.get(`*`, (req: Request, res: Response) => {
-        // LE VOY A DAR EL INDEX DEL BUILD
-        res.sendFile(path.resolve(__dirname, '../../../react-app/build', 'index.html'));
-    });
 
-     // HANDLE UNHANDLES API REQUESTS 
-     server.use( (req: Request, res: Response, next:NextFunction) => {
-        res.send(`API ${req.path} not implemented`)
-        next( );
+const registerUnhandleRoutesMiddleware = ( server: Application ) => {
+    
+    // All API requests not hadled before
+    server.all(`/api/*`, (request: Request, response: Response) => {
+        response.send(`Api ${request.path} not implemented!`);
       });
-}
 
-export { registerRoutegMiddleware, registerUnhandledRoutesMiddleware };
+    // All GET request (Non-API) will return React app
+    server.get(`*`, (request: Request, response: Response) => {
+        response.sendFile(path.resolve(__dirname, `../../../react-app/build`, `index.html`));
+      });
+    
+    // Handle unhandled API requests
+    server.use( (request: Request, response: Response, netx: NextFunction) => {
+        response.send(`Api ${request.path} not implemented!`);
+      });
+} 
+
+export { registerRouteMiddleware, registerUnhandleRoutesMiddleware };

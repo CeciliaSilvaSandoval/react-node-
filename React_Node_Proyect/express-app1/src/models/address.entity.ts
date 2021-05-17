@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm'; 
-import User from './user.entity';
+
+import User from "./user.entity";
+
 @Entity()
 class Address {
     
@@ -9,9 +11,9 @@ class Address {
     @Column()
     city?: string;
 
-    @OneToOne(()=>User,user=>user.address,{onDelete:'CASCADE'})
+    @OneToOne(() => User, user => user.address, {onDelete: 'CASCADE'})
     @JoinColumn()
-    user?:User
+    user?: User;
 }
 
 export default Address;
