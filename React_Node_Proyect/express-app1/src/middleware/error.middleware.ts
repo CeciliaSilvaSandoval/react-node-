@@ -5,12 +5,14 @@ const registerErrorHandlingMiddleware = ( server: express.Application ) => {
     //error handling middleware
     server.use ((error: any, request: Request, response: Response, next: NextFunction) => {
         
-        console.log(`Error handler : `, error);
+        let origin=error.origin;
         let status = error.status || 500;
         let message = error.message || `Something went wrong! :(`;
+
+        // console.log(`Error handler : `,origin ,status,message);
         
         response 
-            // .status( status )
+            .status( status )
             .send( {status, message} )  
     }); 
     
