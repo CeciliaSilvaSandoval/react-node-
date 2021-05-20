@@ -48,3 +48,9 @@ export class PersistenceConnectivityError extends ExtendedError{
             super(500,'Aplication Layer',`Conectivity fail ; ${error.message}`  );
         }
     }
+
+    export class DataValidationError extends ExtendedError {
+            constructor (errors:string){
+                super(400,`Router Layer`,`Validation Errors :${errors}`);
+            }
+     }

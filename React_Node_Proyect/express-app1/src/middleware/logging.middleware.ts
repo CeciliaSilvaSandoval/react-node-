@@ -1,10 +1,10 @@
-import express from 'express';
+import {Application, Request,Response,NextFunction} from 'express';
 
-const registerLoggingMiddleware = ( server: express.Application ) => {
+const registerLoggingMiddleware = ( server: Application ) => {
 
     // loggin middleware
-    server.use( (req, res, next) => {
-    console.log(`${req.method} ${req.path}`);
+    server.use( (request:Request, response:Response, next:NextFunction) => {
+    console.log(`${request.method} ${request.path}`);
     next( );
   });
 
