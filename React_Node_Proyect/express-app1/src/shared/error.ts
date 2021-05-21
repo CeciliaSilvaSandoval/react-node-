@@ -41,7 +41,6 @@ export class RouteNotImplementedError extends ExtendedError{
     }
 }
 
-
 export class PersistenceConnectivityError extends ExtendedError{
     // cannoot be coonnected with the database
         constructor (error:any ){
@@ -50,7 +49,7 @@ export class PersistenceConnectivityError extends ExtendedError{
     }
 
     export class DataValidationError extends ExtendedError {
-            constructor (errors:string){
-                super(400,`Router Layer`,`Validation Errors :${errors}`);
+            constructor (messages:string){
+                super(400,`Router Layer`,`Validation Errors :${messages}`);
             }
      }
