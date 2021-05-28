@@ -10,7 +10,7 @@ const registerErrorHandlingMiddleware = ( server: express.Application ) => {
         let message = error.message || `Something went wrong! :(`;
 
         // console.log(`Error handler : `,origin ,status,message);
-        
+         
         response 
             .status( status )
             .send( {status, message} )  
