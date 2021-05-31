@@ -3,9 +3,11 @@ import { Request, Response, NextFunction} from 'express';
 import { handleAsync } from '../shared/utilities';
 import { IService } from '../services/index.service';
 import { IRoute, Route } from './index.route';
-import { EntityNotFoundError } from '../shared/error';
-import { validationMiddleware } from '../middleware/validation.middleware';
-import { UsersValidator } from '../models/users.validator';
+import {EntityNotFoundError} from '../shared/error' 
+import {validationMiddleware} from '../middleware/validation.middleware'
+import {UsersValidator} from '../models/users.validator'
+import {UsersPatchValidator} from '../models/usersPatch.validator'
+
 
 class UsersRoute extends Route{
 
@@ -14,10 +16,10 @@ class UsersRoute extends Route{
         this.api = api;
         this.service = service;
 
-        this.router.post(`/`, validationMiddleware(UsersValidator), this.post);
+        this.router.post(`/`,validationMiddleware(UsersValidator),validationMiddleware(UsersValidator), this.post);
         this.router.get(`/`, this.get);
         this.router.get(`/:id`, this.getOne);
-        this.router.patch(`/:id`, validationMiddleware(UsersValidator, {skipMissingProperties: true}), this.patch);
+        this.router.patch(`/:id`,validationMiddleware(UsersPatchValidator,{skipMissingProperties:true}), this.patch);
         this.router.delete(`/:id`, this.delete);
         return this;
     }
@@ -42,7 +44,7 @@ class UsersRoute extends Route{
         if (deleteResponse.affected === 1){
             response.send({deleted: true, message: `All users deleted successfully!`});
         } else {
-            next( new EntityNotFoundError(id) );
+            next(new EntityNotFoundError(id));
         }
     
     }

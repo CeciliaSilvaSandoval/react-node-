@@ -4,52 +4,58 @@ class ExtendedError extends Error{
     status: number;
     origin: string;
 
-    constructor (status: number,origin:string, message:string ){
+    constructor (status: number, origin: string, message:string ){
         super (message)
         this.status = status;
-        this.origin =origin
+        this.origin = origin;
     }
-
 }
 
 export class AdaptorError extends ExtendedError{
 
     constructor (error:any){
-        super(500,'Service Layer', `Server error : ${error}`);
+        super(500, `Adaptor Layer`, `Server error : ${error.message}`);
     }
 }
 
 export class EntityNotFoundError extends ExtendedError{
 
-    constructor (id:string ){
-        // Somebody give me a rong id
-        super(400,'Route Layer',`entity with id: ${id},  Not found!`  );
+    constructor (id:string){
+        super(400, `Route Layer`, `Entity with ${id} not found!`);
     }
 }
+
 export class APINotImplementedError extends ExtendedError{
 
-    constructor (route:string ){
-        // Somebody give me a rong id
-        super(400,'Middleware',`API with rout: ${route},  Not implemented!`  );
+    constructor (route:string){
+        super(400, ` Application Middleware`, `API ${route} not found!`);
     }
 }
 
 export class RouteNotImplementedError extends ExtendedError{
-// not existing route with that metod in route.middleware, only get  
-    constructor (route:string ){
-        super(400,'Middleware',`Route: ${route},  Not implemented!`  );
+
+    constructor (route:string){
+        super(400, `Application Middleware`, `Route ${route} not found!`);
     }
 }
 
-export class PersistenceConnectivityError extends ExtendedError{
-    // cannoot be coonnected with the database
-        constructor (error:any ){
-            super(500,'Aplication Layer',`Conectivity fail ; ${error.message}`  );
-        }
-    }
+export class PersistanceConnectivityError extends ExtendedError{
 
-    export class DataValidationError extends ExtendedError {
-            constructor (messages:string){
-                super(400,`Router Layer`,`Validation Errors :${messages}`);
-            }
-     }
+    constructor (error:any){
+        super(500, `Application Layer`, `Connectivity Issue : ${error.message}`);
+    }
+}
+
+export class DataValidationError extends ExtendedError{
+
+    constructor ( messsages:string ){
+        super(400, `Route Layer`, `Validation Error : ${messsages}`);
+    }
+}
+
+export class UnAuthorizedError extends ExtendedError{
+
+    constructor ( error:any ){
+        super(401, `Authentication Middleware`, `Error : ${error.messsages}`);
+    }
+}

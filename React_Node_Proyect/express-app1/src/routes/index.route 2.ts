@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction, Router } from 'express';
 
 import { handleAsync } from '../shared/utilities';
 import { IService } from '../services/index.service';
-import { EntityNotFoundError } from '../shared/error';
+import {EntityNotFoundError} from '../shared/error' 
 
 interface IRoute {
     api: string;
@@ -59,7 +59,7 @@ class Route implements IRoute{
         if (item) {
             response.json(item);
         } else {
-            next( new EntityNotFoundError(id) );
+            next(new EntityNotFoundError(id));
         }
     }
 
@@ -73,7 +73,7 @@ class Route implements IRoute{
         if (updatedItem) {
             response.send(updatedItem);
         } else {
-            next( new EntityNotFoundError(id) );
+            next(new EntityNotFoundError(id));
         }
     }
 
@@ -87,7 +87,7 @@ class Route implements IRoute{
         if (deleteResponse.affected === 1){
             response.send({deleted: true});
         } else {
-            next( new EntityNotFoundError(id) );
+            response.send(`No item found for ${id}!`);
         }
     
     }
