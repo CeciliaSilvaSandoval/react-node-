@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "express-mung": "^0.5.1",
     "js2xmlparser": "^4.0.1",
+    "njwt": "^1.1.0",
     "pg": "^8.6.0",
     "ts-node-dev": "^1.1.6",
     "typeorm": "^0.2.32",

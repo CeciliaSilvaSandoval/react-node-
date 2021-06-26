@@ -53,9 +53,9 @@ export class DataValidationError extends ExtendedError{
     }
 }
 
-export class UnAuthorizedError extends ExtendedError{
+export class AuthError extends ExtendedError{
 
-    constructor ( error:any ){
-        super(401, `Authentication Middleware`, `Error : ${error.messsages}`);
+    constructor ( messsage:any ){
+        super(401, `Auth Middleware`, `Error : ${messsage}`);
     }
 }

@@ -19,3 +19,4 @@ const responseFormatterMiddleware = ( server: Application ) => {
 }
 
 export default responseFormatterMiddleware;
+    

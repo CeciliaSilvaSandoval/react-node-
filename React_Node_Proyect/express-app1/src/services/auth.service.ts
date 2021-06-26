@@ -7,10 +7,9 @@ import { AdaptorError } from '../shared/error';
 class AuthService extends Service{
 
     find = async( options: any ) => {
-        let opts ={...options, relations: ["address", "company"]};
+        let opts ={where: options, relations: ["address", "company"]};
         console.log(`AuthService: :`,opts);
         
-
         let [items,error] =[null, null];
 
         [items, error] = await handleAsync(getRepository(this.entity).find( opts));
